@@ -16,17 +16,17 @@ app.get("/posts", (req, res)=>{
 
 app.post("/posts", (req, res)=>{
     const id  = randomBytes(4).toString('hex');
-    const {content}  = req.body;
+    const {title}  = req.body;
 
     posts[id] = {
         id,
-        content
+        title
     }
 
     return res.status(201).send(posts[id])
 })
 
 
-app.listen(4000, ()=>{
-    console.log(`This app is listenning on 4000`);
+app.listen(4001, ()=>{
+    console.log(`This app is listenning on 4001`);
 })
