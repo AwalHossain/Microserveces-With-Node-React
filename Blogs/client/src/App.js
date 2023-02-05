@@ -2,6 +2,7 @@
 
 import React from 'react'
 import PostCreate from './PostCreate'
+import PostList from './PostList'
 
 export default function App() {
   return (
@@ -11,6 +12,8 @@ export default function App() {
 
     <div >
         <PostCreate />
+        <h3>Here goest Posts</h3>
+        <PostList />
     </div>
 
     </div>
