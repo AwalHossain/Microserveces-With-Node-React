@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require('cors');
 const bodyParser  = require('body-parser');
+const axios = require('axios');
 const {randomBytes}  = require('crypto');
 const app = express();
 app.use(bodyParser.json());
@@ -14,7 +15,7 @@ app.get("/posts", (req, res)=>{
     return res.send(posts);
 })
 
-app.post("/posts", (req, res)=>{
+app.post("/posts", async (req, res)=>{
     const id  = randomBytes(4).toString('hex');
     const {title}  = req.body;
 
@@ -23,10 +24,25 @@ app.post("/posts", (req, res)=>{
         title
     }
 
+    await axios.post('http://localhost:4005/events', {
+        type: 'PostCreated',
+        data: {
+          id,
+          title,
+        },
+      });
+
     return res.status(201).send(posts[id])
 })
 
 
+app.post("/events", (req, res)=>{
+    console.log("Event Received", req.body.type);
+
+    return res.send({});
+});
+
+
 app.listen(4001, ()=>{
-    console.log(`This app is listenning on 4001`);
+    console.log(`POST app is listenning on 4001`);
 })

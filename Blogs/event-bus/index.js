@@ -10,7 +10,7 @@ app.use(cors());
 
 const events = [];
 
-app.post("/event",async(req, res)=>{
+app.post("/events",async(req, res)=>{
     const event = req.body;
 
     events.push(event);
@@ -18,17 +18,18 @@ app.post("/event",async(req, res)=>{
  await axios.post('http://localhost:4000/events', event);
  await axios.post('http://localhost:4001/events', event);
  await axios.post('http://localhost:4002/events', event);
- await axios.post('http://localhost:4003/events', event);
+//  await axios.post('http://localhost:4003/events', event);
 
  return res.send({status: "OK"});
 })
 
 
 app.get("/events", (req, res)=>{
+    console.log("isj ist");
     res.send(events);
 })
 
 
 app.listen(4005, ()=>{
-    console.log(`This app is running on 4005`);
+    console.log(`Event-bus app is running on 4005`);
 })
