@@ -8,11 +8,13 @@ app.use(bodyParser.json());
 
 
 app.post("/events", async (req, res)=>{
-    const {type, content, id, postId} = req.body.data;
-
-    if(type === 'CommentCreated'){
+    const {type,data} = req.body;
+    
+    // console.log(req.body,"hunts");
+    if(type == "CommentCreated"){
+        const { content, id, postId} = data;
      const status = content.includes('orange') ? "Rejected": "approved";
-
+     console.log(postId,"id is work");
         await axios.post('http://localhost:4005/events',{
             type:"CommentModerated",
             data:{
